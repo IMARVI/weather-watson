@@ -1,4 +1,45 @@
-page-cards {
+@function set-text-color($color) {
+	@if (lightness($color) > 70) {
+		@return #5D5D5D;
+	} @else {
+		@return #FFF;
+	}
+}
+
+$lighten-color: color($colors, card-color);
+$step: 1;
+
+@while $step <=20  {
+	#main ion-card:nth-child(#{$step}) {
+		@if($step == 1) {
+			background-color: $lighten-color;
+			color: set-text-color($lighten-color);
+		} @else {
+			$new-color: lighten($lighten-color, $step);
+		    background-color: $new-color;
+		    color: set-text-color($new-color);
+		}
+	}
+	$step: $step + 1;
+}
+
+.item-ios {
+	background: inherit;
+	background-color: inherit;
+	color: inherit;
+}
+
+.card-ios {
+	box-shadow: none;
+	webkit-box-shadow: none;
+	border-radius: 0px;
+	margin: 0;
+	width: 100%;
+}
+
+#main {
+	background-color: color($colors, base);
+	color: set-text-color(color($colors, base));
 }
 
 #chat-welcome {
@@ -17,6 +58,7 @@ page-cards {
 		family: 'roboto', sans-serif;
 		weight: 100;
 	};
+
 }
 
 .italic {
@@ -24,5 +66,13 @@ page-cards {
 }
 
 .w-icon {
-	font-size: 30px;
+	font-size: 40px;
 }
+
+.no-scroll {
+    scroll-content {
+        overflow-y: hidden;
+    }
+}
+
+

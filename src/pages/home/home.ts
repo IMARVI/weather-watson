@@ -59,6 +59,27 @@ export class HomePage {
         },
         image: 'day-cloudy'
       },
+      {
+        city: {
+          name: 'Acapulco',
+          temp: '31°'
+        },
+        image: 'day-cloudy'
+      },
+      {
+        city: {
+          name: 'Mexicali',
+          temp: '40°'
+        },
+        image: 'day-cloudy'
+      },
+      {
+        city: {
+          name: 'Chihuahua',
+          temp: '23°'
+        },
+        image: 'day-cloudy'
+      }
     ];
 
   }

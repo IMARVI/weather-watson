@@ -23,13 +23,13 @@ $step: 1;
 	$step: $step + 1;
 }
 
-.item-ios {
+.item {
 	background: inherit;
 	background-color: inherit;
 	color: inherit;
 }
 
-.card-ios {
+.card {
 	box-shadow: none;
 	webkit-box-shadow: none;
 	border-radius: 0px;
@@ -68,11 +68,4 @@ $step: 1;
 .w-icon {
 	font-size: 40px;
 }
-
-.no-scroll {
-    scroll-content {
-        overflow-y: hidden;
-    }
-}
-
 

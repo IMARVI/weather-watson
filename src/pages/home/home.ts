@@ -41,7 +41,6 @@ export class HomePage {
       if (this.datos != undefined  && this.datos.response.error != null){
         console.log("dentro del error")
       }
-
       if (this.datos != undefined && this.datos.current_observation != null){
         let info = this.datos.current_observation;
         this.showFullInfo(

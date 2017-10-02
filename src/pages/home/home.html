@@ -4,20 +4,24 @@
 			¿Qué deseas hacer?
 		</h1>
 	</ion-row>
-	<ion-row padding-left>
-		<ion-textarea  id="chat-input"></ion-textarea>
+
+  <ion-row padding-left>
+    <ion-input placeholder="Pais y ciudad" clearInput
+    type=text (keyup.enter)="callWeatherApi($event.target.value)"> </ion-input>
 	</ion-row>
-  <ion-card *ngFor="let item of cardItems">
+
+  <ion-card *ngFor="let item of tarjetaService.cardItems" (click)="showFullInfo(item)" >
   	<ion-row class="city">
 	    <ion-col>
 	    	<ion-item>
-		      <h2>{{item.city.name}}</h2>
-		      <h1 class="italic">{{item.city.temp}}</h1>
+		      <h2>{{item.ciudad}}</h2>
+          <h1 class="italic">{{item.temperatura}}</h1>
 		    </ion-item>
 	    </ion-col>
 	    <ion-col>
-	    	<i class="wi wi-{{item.image}} w-icon" float-right padding></i>
+	    	<i class="wi wi-{{item.imagen}} w-icon" float-right padding></i>
 	    </ion-col>
-	</ion-row>
+	  </ion-row>
   </ion-card>
+
 </ion-content>

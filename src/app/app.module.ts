@@ -10,11 +10,8 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import {AddTaskModalPage} from '../pages/add-task-modal/add-task-modal'
-
-import{ TarjetaService }from '../providers/tarjeta-service/tarjeta-service'
-
+import{ TarjetaService }from '../providers/tarjeta-service/tarjeta-service';
 import {Facebook} from '@ionic-native/facebook';
-import { ConversationV1 }  from 'watson-developer-cloud';
 
 @NgModule({
   declarations: [

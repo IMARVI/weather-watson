@@ -4,20 +4,24 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
+import {Facebook} from '@ionic-native/facebook';
 
 import { MyApp } from './app.component';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
-import {AddTaskModalPage} from '../pages/add-task-modal/add-task-modal'
-import{ TarjetaService }from '../providers/tarjeta-service/tarjeta-service';
-import {Facebook} from '@ionic-native/facebook';
+import { DetalleClimaPage } from '../pages/detalle-clima/detalle-clima';
+
+import {AddTaskModalPage} from '../pages/add-task-modal/add-task-modal';
+import{ ClimaService }from '../providers/clima-service/clima-service';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
+    DetalleClimaPage,
     AddTaskModalPage
   ],
   imports: [
@@ -30,13 +34,14 @@ import {Facebook} from '@ionic-native/facebook';
     MyApp,
     HomePage,
     LoginPage,
+    DetalleClimaPage,
     AddTaskModalPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TarjetaService,
+    ClimaService,
     Facebook
   ]
 })

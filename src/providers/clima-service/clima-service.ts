@@ -9,7 +9,7 @@ import {TarjetaModel} from '../../models/tarjeta-model'
 //Sirve como un controlador, aqui se especifican
 //metodos y se inyecta a la vista en este caso la home-page
 @Injectable()
-export class TarjetaService {
+export class ClimaService {
 
   public cardItems: TarjetaModel[];
   datos: JSON;
@@ -34,8 +34,10 @@ export class TarjetaService {
   //https://www.wunderground.com/weather/api/d/docs?d=resources/code-samples&MR=1
   buscarClima(ciudad: string){
     return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/Mexico/"+ciudad+".json").map(
-      (res:Response) => {
-        return res.json()
+      (response: Response) => {
+        this.datos = response.json();
+        console.log(this.datos + "datos dentro de service");
+        return this.datos;
       })
   }
 }

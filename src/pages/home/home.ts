@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, Platform } from 'ionic-angular';
+
 import { LoginPage } from '../login/login';
+import { DetalleClimaPage } from '../detalle-clima/detalle-clima';
+
 import { TarjetaModel } from '../../models/tarjeta-model'
-import { TarjetaService } from '../../providers/tarjeta-service/tarjeta-service';
-import { AddTaskModalPage } from '../add-task-modal/add-task-modal';
+import { ClimaService } from '../../providers/clima-service/clima-service';
+
 var Watson = require ('../../../node_modules/watson-developer-cloud/conversation/v1.js');
 
 @Component({
   selector: 'page-cards',
   templateUrl: 'home.html',
-  //Este service es unico para la home-page
-  //si quieres hacerlo global lo pones en app.module
-  providers: [TarjetaService, Platform]
+  providers: [ClimaService, Platform]
 })
 
 export class HomePage {
-  datosClima: any[];
+  datosClima: any;
   watson: any;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     public modalCtrl: ModalController,
-    public tarjetaService: TarjetaService,
+    public tarjetaService: ClimaService,
     public platform: Platform
   ) {
-    this.watson = new Watson({
+    /*this.watson = new Watson({
       username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
       password: 'WdaKCf8xFsEh',
       version: 'v1',
@@ -44,30 +44,27 @@ export class HomePage {
       if (response.output.text.length != 0) {
           console.log(response.output.text[0]);
       }
-    }
+    }*/
   }
 
-  goTologin(){
+  goToLogin(){
     this.navCtrl.push(LoginPage);
   }
 
-  showFullInfo(item: TarjetaModel){
-    var modal = this.modalCtrl.create(AddTaskModalPage,item);
-    modal.present();
+  goToDetalleCima(){
+    this.navCtrl.push(DetalleClimaPage,{
+      datos : this.datosClima
+    });
   }
 
   callWeatherApi(ciudad : string){
 
     if(ciudad.length>0){
       this.tarjetaService.buscarClima(ciudad).subscribe(
-        (response) => this.datosClima = response),
-        (error) => console.log(error);
-      //console.log(this.datosClima);
-
-      if (this.datosClima != undefined  && this.datosClima["response.error"] != null){
-        console.log("dentro del error")
-      }
-      if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
+        (response) => this.datosClima = response,
+        (error) => console.log(error)
+      );
+      /* if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
         let info = this.datosClima["current_observation"];
         this.showFullInfo(
           new TarjetaModel(
@@ -78,7 +75,7 @@ export class HomePage {
           info.relative_humidity,
           info.wind_kph+"km/h"
         ));
-      }
+      } */
     }
   }
 }

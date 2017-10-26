@@ -7,10 +7,11 @@
 
   <ion-row padding-left>
     <ion-input placeholder="Pais y ciudad" clearInput
-    type=text (keyup.enter)="callWeatherApi($event.target.value)"> </ion-input>
-	</ion-row>
+    type=text (keyup.enter)="goToDetalleCima($event.target.value)"> </ion-input>
+  </ion-row>
 
-  <ion-card *ngFor="let item of tarjetaService.cardItems" (click)="showFullInfo(item)" >
+  <div *ngIf="climaService.cardItems">
+  <ion-card *ngFor="let item of climaService.cardItems['datos']" (click)="showFullInfo(item)" >
   	<ion-row class="city">
 	    <ion-col>
 	    	<ion-item>
@@ -22,6 +23,7 @@
 	    	<i class="wi wi-{{item.imagen}} w-icon" float-right padding></i>
 	    </ion-col>
 	  </ion-row>
-</ion-card>
+  </ion-card>
+  </div>
 
 </ion-content>

@@ -1,0 +1,40 @@
+{
+  "datos":[
+    {
+      "id":1,
+      "ciudad": "Ciudad de Mexico",
+      "temperatura": "23",
+      "imagen":"day-sunny",
+      "precipitacion": "10%" ,
+      "humedad": "50%",
+      "viento": "14Km/h"
+    },
+    {
+      "id":1,
+      "ciudad": "Pachuca de Soto",
+      "temperatura": "18",
+      "imagen":"day-rain",
+      "precipitacion": "10%" ,
+      "humedad": "50%",
+      "viento": "14Km/h"
+    },
+    {
+      "id":1,
+      "ciudad": "Guadalajara",
+      "temperatura": "28",
+      "imagen":"day-sleet",
+      "precipitacion": "10%" ,
+      "humedad": "50%",
+      "viento": "14Km/h"
+    },
+    {
+      "id":1,
+      "ciudad": "Aguascalientes",
+      "temperatura": "13",
+      "imagen":"day-thunderstorm",
+      "precipitacion": "10%" ,
+      "humedad": "50%",
+      "viento": "14Km/h"
+    }
+  ]
+}

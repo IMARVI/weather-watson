@@ -23,9 +23,10 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public tarjetaService: ClimaService,
+    public climaService: ClimaService,
     public platform: Platform
   ) {
+    console.log(this.climaService.cardItems);
     /*this.watson = new Watson({
       username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
       password: 'WdaKCf8xFsEh',
@@ -34,7 +35,7 @@ export class HomePage {
       version_date: '2017-05-26'
     });
     this.watson.message({}, processResponse);
-    
+
     // Process the conversation response.
     function processResponse(err, response) {
       if (err) {
@@ -52,11 +53,15 @@ export class HomePage {
     this.navCtrl.push(LoginPage);
   }
 
-  goToDetalleCima(){
+  goToDetalleCima(ciudad : string){
+    if(ciudad.length>0){
     this.navCtrl.push(DetalleClimaPage,{
       datos : this.datosClima
     });
+    }
   }
+
+  ngDoCheck(){}
 
   showFullInfo(item: TarjetaModel){
     var modal = this.modalCtrl.create(AddTaskModalPage,item);
@@ -66,7 +71,7 @@ export class HomePage {
   callWeatherApi(ciudad : string){
 
     if(ciudad.length>0){
-      this.tarjetaService.buscarClima(ciudad).subscribe(
+      this.climaService.buscarClima(ciudad).subscribe(
         (response) => console.log(this.datosClima = response['current_observation']),
         (error) => console.log(error),
       );

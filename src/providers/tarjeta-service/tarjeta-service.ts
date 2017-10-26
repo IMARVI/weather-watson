@@ -33,15 +33,9 @@ export class TarjetaService {
 
   //https://www.wunderground.com/weather/api/d/docs?d=resources/code-samples&MR=1
   buscarClima(ciudad: string){
-    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/Mexico/"
-    +ciudad+".json")
-    .map( (res:Response) => {return res.json()})
-    .catch(this.handleError);
-  }
-
-  private handleError(error:Response){
-    let message = 'Error status code ${error.status} at ${error.url}';
-    console.log("Errorn en handleError  "+message);
-    return Observable.throw(message);
+    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/Mexico/"+ciudad+".json").map(
+      (res:Response) => {
+        return res.json()
+      })
   }
 }

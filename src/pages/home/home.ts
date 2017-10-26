@@ -15,8 +15,9 @@ var Watson = require ('../../../node_modules/watson-developer-cloud/conversation
 })
 
 export class HomePage {
-  datos: any;
+  datosClima: any[];
   watson: any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,14 +28,23 @@ export class HomePage {
     this.watson = new Watson({
       username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
       password: 'WdaKCf8xFsEh',
-      path: {workspace_id: 'e3183c7a-3790-4efd-9ac2-deb7740f4044'},
+      version: 'v1',
+      path: { workspace_id: 'e3183c7a-3790-4efd-9ac2-deb7740f4044' },
       version_date: '2017-05-26'
     });
-
-    console.log("--------------");
-    console.log(this.watson.message({}));
-    console.log("--------------");
-
+    this.watson.message({}, processResponse);
+    
+    // Process the conversation response.
+    function processResponse(err, response) {
+      if (err) {
+        console.error(err); // something went wrong
+        return;
+      }
+      // Display the output from dialog, if any.
+      if (response.output.text.length != 0) {
+          console.log(response.output.text[0]);
+      }
+    }
   }
 
   goTologin(){
@@ -49,15 +59,16 @@ export class HomePage {
   callWeatherApi(ciudad : string){
 
     if(ciudad.length>0){
-      this.tarjetaService.buscarClima(ciudad)
-      .subscribe(data => this.datos= data);
-      console.log(this.datos);
+      this.tarjetaService.buscarClima(ciudad).subscribe(
+        (response) => this.datosClima = response),
+        (error) => console.log(error);
+      //console.log(this.datosClima);
 
-      if (this.datos != undefined  && this.datos.response.error != null){
+      if (this.datosClima != undefined  && this.datosClima["response.error"] != null){
         console.log("dentro del error")
       }
-      if (this.datos != undefined && this.datos.current_observation != null){
-        let info = this.datos.current_observation;
+      if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
+        let info = this.datosClima["current_observation"];
         this.showFullInfo(
           new TarjetaModel(
           info.display_location.full,

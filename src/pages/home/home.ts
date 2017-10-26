@@ -6,6 +6,7 @@ import { DetalleClimaPage } from '../detalle-clima/detalle-clima';
 
 import { TarjetaModel } from '../../models/tarjeta-model'
 import { ClimaService } from '../../providers/clima-service/clima-service';
+import { AddTaskModalPage } from '../add-task-modal/add-task-modal';
 
 var Watson = require ('../../../node_modules/watson-developer-cloud/conversation/v1.js');
 
@@ -57,12 +58,17 @@ export class HomePage {
     });
   }
 
+  showFullInfo(item: TarjetaModel){
+    var modal = this.modalCtrl.create(AddTaskModalPage,item);
+    modal.present();
+  }
+
   callWeatherApi(ciudad : string){
 
     if(ciudad.length>0){
       this.tarjetaService.buscarClima(ciudad).subscribe(
-        (response) => this.datosClima = response,
-        (error) => console.log(error)
+        (response) => console.log(this.datosClima = response['current_observation']),
+        (error) => console.log(error),
       );
       /* if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
         let info = this.datosClima["current_observation"];

@@ -36,7 +36,6 @@ export class ClimaService {
     return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/Mexico/"+ciudad+".json").map(
       (response: Response) => {
         this.datos = response.json();
-        console.log(this.datos + "datos dentro de service");
         return this.datos;
       })
   }

@@ -14,12 +14,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'detalle-clima.html',
 })
 export class DetalleClimaPage {
-
+  detalle: any[];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+     this.detalle = navParams.get('datos');  
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetalleClimaPage');
+    console.log(this.detalle);
   }
 
 }

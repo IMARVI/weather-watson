@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
@@ -44,7 +45,9 @@ import{ ClimaService }from '../providers/clima-service/clima-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ClimaService,
-    Facebook
+    Facebook,
+    Geolocation,
+
   ]
 })
 export class AppModule {};

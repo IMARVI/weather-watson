@@ -7,7 +7,7 @@
 
   <ion-row padding-left>
     <ion-input placeholder="Pais y ciudad" clearInput
-    type=text (keyup.enter)="goToDetalleCima($event.target.value)"> </ion-input>
+    type=text (keyup.enter)="callWeatherApi($event.target.value)"> </ion-input>
   </ion-row>
 
   <div *ngIf="climaService.cardItems">

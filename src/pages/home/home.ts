@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, Platform } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { LoginPage } from '../login/login';
 import { DetalleClimaPage } from '../detalle-clima/detalle-clima';
@@ -19,14 +20,18 @@ var Watson = require ('../../../node_modules/watson-developer-cloud/conversation
 export class HomePage {
   datosClima: any;
   watson: any;
+  enterDetected = false;
+
+  latitudActual: any;
+  longitudActual: any;
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public climaService: ClimaService,
-    public platform: Platform
+    public platform: Platform,
+    private geolocation: Geolocation
   ) {
-    console.log(this.climaService.cardItems);
     /*this.watson = new Watson({
       username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
       password: 'WdaKCf8xFsEh',
@@ -47,6 +52,21 @@ export class HomePage {
           console.log(response.output.text[0]);
       }
     }*/
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latitudActual =resp.coords.latitude;
+      this.longitudActual=resp.coords.longitude;
+      console.log(resp);
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+
+     //let watch = this.geolocation.watchPosition();
+     //watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // data.coords.latitude
+      // data.coords.longitude
+     //});
   }
 
   goToLogin(){
@@ -61,8 +81,41 @@ export class HomePage {
     }
   }
 
-  ngDoCheck(){}
+  ngDoCheck() {
+    if(this.datosClima != null){
+      let nuevoClima = new TarjetaModel(
+        this.datosClima.display_location.full,
+        this.datosClima.feelslike_c,
+        this.datosClima.image.url,
+        this.datosClima.precip_today_metric,
+        this.datosClima.relative_humidity,
+        this.datosClima.wind_kph
+      );
+      this.showFullInfo(nuevoClima);
 
+      this.datosClima = null;
+      //console.log(this.datosClima.display_location.city);
+      //console.log(this.datosClima);
+    }
+
+    if(this.latitudActual!= null){
+      this.callWeatherApiLatLong(this.latitudActual, this.longitudActual);
+      if(this.datosClima != null){
+      let nuevoClima = new TarjetaModel(
+        this.datosClima.display_location.full,
+        this.datosClima.feelslike_c,
+        this.datosClima.image.url,
+        this.datosClima.precip_today_metric,
+        this.datosClima.relative_humidity,
+        this.datosClima.wind_kph
+      );
+      this.showFullInfo(nuevoClima);
+    }
+
+      this.datosClima = null;
+      this.latitudActual= null;
+    }
+  }
   showFullInfo(item: TarjetaModel){
     var modal = this.modalCtrl.create(AddTaskModalPage,item);
     modal.present();
@@ -88,5 +141,12 @@ export class HomePage {
         ));
       } */
     }
+  }
+
+  callWeatherApiLatLong(lat : string, long: string){
+    this.climaService.buscarClimaCoord(lat, long).subscribe(
+      (response) => console.log(this.datosClima = response['current_observation']),
+      (error) => console.log(error),
+    );
   }
 }

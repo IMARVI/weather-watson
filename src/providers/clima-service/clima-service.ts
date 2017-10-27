@@ -45,7 +45,15 @@ export class ClimaService {
 
   //https://www.wunderground.com/weather/api/d/docs?d=resources/code-samples&MR=1
   buscarClima(ciudad: string){
-    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/Mexico/"+ciudad+".json").map(
+    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/"+ciudad+".json").map(
+      (response: Response) => {
+        this.datos = response.json();
+        return this.datos;
+      })
+  }
+
+  buscarClimaCoord(lat: string, long: string){
+    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/"+lat+","+long+".json").map(
       (response: Response) => {
         this.datos = response.json();
         return this.datos;

@@ -6,3 +6,8 @@ Install:
  ```
 ionic serve
 ```
+
+Swagger file
+ ```
+swagger.json
+```

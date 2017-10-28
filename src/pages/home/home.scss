@@ -7,20 +7,28 @@
 }
 
 $lighten-color: color($colors, card-color);
+$last-color: $lighten-color;
 $step: 1;
 
-@while $step <=20  {
+@while $step <=5  {
 	#main ion-card:nth-child(#{$step}) {
 		@if($step == 1) {
 			background-color: $lighten-color;
 			color: set-text-color($lighten-color);
 		} @else {
-			$new-color: lighten($lighten-color, $step);
+			$new-color: lighten($lighten-color, $step * 1.3);
 		    background-color: $new-color;
 		    color: set-text-color($new-color);
+		    $last-color: $new-color
 		}
 	}
+
+
 	$step: $step + 1;
+}
+
+#main {
+	background-color: $last-color;
 }
 
 .item {
@@ -37,7 +45,7 @@ $step: 1;
 	width: 100%;
 }
 
-#main {
+#chat {
 	background-color: color($colors, base);
 	color: set-text-color(color($colors, base));
 }

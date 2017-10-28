@@ -1,0 +1,341 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a simple API",
+    "version" : "1.0.0",
+    "title" : "Weather Chatbot",
+    "contact" : {
+      "email" : "you@your-company.com"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/martfl/Weather-chatbot/1.0.0",
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "user",
+    "description" : "Operations available to regular users"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/Weather/byCity" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Gets weather by city name",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId" : "callWeatherAPI",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "searchString",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "number of records to skip for pagination",
+          "required" : false,
+          "type" : "integer",
+          "minimum" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "maximum" : 50.0,
+          "minimum" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CityWeather"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/Weather/byLat" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Gets weather by latitude and longitude",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId" : "callWeatherApiLatLong",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "searchString",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "number of records to skip for pagination",
+          "required" : false,
+          "type" : "integer",
+          "minimum" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "maximum" : 50.0,
+          "minimum" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CityWeather"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/Weather/admin/cities" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Get all cities used by users",
+        "description" : "Get all cities used by users",
+        "operationId" : "getCities",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CityWeather"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "adds a city to the app",
+        "description" : "Adds a city to the system",
+        "operationId" : "addCity",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CityWeather"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/Weather/admin/users" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Get all cities used by users",
+        "description" : "Get all users",
+        "operationId" : "getUsers",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "adds a user to the app",
+        "description" : "Adds a user to the system",
+        "operationId" : "addUser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/Weather/admin/deleteCity" : {
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "deletes City from app",
+        "description" : "Deletes a city on  the system",
+        "operationId" : "deleteCity",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/Weather/admin/deleteUser" : {
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "deletes User",
+        "description" : "Deletes a user on  the system",
+        "operationId" : "deleteuser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CityWeather"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "CityWeather" : {
+      "type" : "object",
+      "required" : [ "date", "id", "lat", "long", "rain", "temp", "wind" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "temp" : {
+          "type" : "string"
+        },
+        "wind" : {
+          "type" : "string",
+          "format" : "int32"
+        },
+        "rain" : {
+          "type" : "string",
+          "format" : "int32"
+        },
+        "lat" : {
+          "type" : "string",
+          "format" : "int32"
+        },
+        "long" : {
+          "type" : "string",
+          "format" : "int32"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime"
+        }
+      }
+    },
+    "User" : {
+      "required" : [ "name" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "ACME Corporation"
+        },
+        "phone" : {
+          "type" : "string",
+          "example" : "408-867-5309"
+        }
+      }
+    }
+  }
+}

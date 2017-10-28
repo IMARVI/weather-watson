@@ -7,12 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>admin</ion-title>
+    <ion-title>Admin</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+	<div *ngIf="climaService.cardItems">
+		<h2>Ciudades activas</h2>
+	  	<ion-card *ngFor="let item of climaService.cardItems['datos']">
+	  		<ion-row class="city">
+		    	<ion-col>
+		    		<ion-item>
+			      	<h2>{{item.ciudad}}</h2>
+			    	</ion-item>
+		    	</ion-col>
+		  	</ion-row>
+	  	</ion-card>
+	</div>
 </ion-content>

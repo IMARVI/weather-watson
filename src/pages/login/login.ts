@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import {HomePage} from '../home/home';
+import { HomePage } from '../home/home';
+import { AdminPage } from '../admin/admin';
+
 
 @Component({
   selector: 'page-login',
@@ -14,6 +16,10 @@ export class LoginPage {
 
   goToHome(){
     this.navCtrl.push(HomePage);
+  }
+
+  goToAdmin(){
+    this.navCtrl.push(AdminPage);
   }
 
   loginWithFB() {

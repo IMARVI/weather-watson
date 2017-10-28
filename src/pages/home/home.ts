@@ -73,6 +73,7 @@ export class HomePage {
     this.navCtrl.push(LoginPage);
   }
 
+
   goToDetalleCima(ciudad : string){
     if(ciudad.length>0){
     this.navCtrl.push(DetalleClimaPage,{

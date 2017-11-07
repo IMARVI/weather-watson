@@ -13,7 +13,7 @@ export class AddTaskModalPage {
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
     this.info = navParams.data;
-    console.log(this.info);
+    //console.log(this.info);
   }
 
   ionViewDidLoad() {

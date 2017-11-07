@@ -45,18 +45,21 @@ export class ClimaService {
 
   //https://www.wunderground.com/weather/api/d/docs?d=resources/code-samples&MR=1
   buscarClima(ciudad: string){
-    console.log(ciudad);
-    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/"+ciudad+".json").map(
+    let query: string = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"+ ciudad +"%22)%20and%20u%3D%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    return this.http.get(query).map(
       (response: Response) => {
-        this.datos = response.json();
+        this.datos = response.json().query.results.channel;
+        console.log(this.datos);
         return this.datos;
       })
   }
 
   buscarClimaCoord(lat: string, long: string){
-    return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/"+lat+","+long+".json").map(
+    let query: string = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22(" + lat + "%2C" + long + ")%22)%20and%20u%3D%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    return this.http.get(query).map(
       (response: Response) => {
-        this.datos = response.json();
+        this.datos = response.json().query.results.channel;
+        console.log(this.datos);
         return this.datos;
       })
   }

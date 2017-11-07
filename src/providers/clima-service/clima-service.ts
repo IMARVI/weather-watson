@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, HttpModule } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -45,6 +45,7 @@ export class ClimaService {
 
   //https://www.wunderground.com/weather/api/d/docs?d=resources/code-samples&MR=1
   buscarClima(ciudad: string){
+    console.log(ciudad);
     return this.http.get("http://api.wunderground.com/api/261b9f4cf1ac1804/conditions/lang:SP/q/"+ciudad+".json").map(
       (response: Response) => {
         this.datos = response.json();

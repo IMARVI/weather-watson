@@ -6,6 +6,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule }  from '@angular/common/http';
+
 import { Facebook } from '@ionic-native/facebook';
 
 import { MyApp } from './app.component';
@@ -31,7 +33,7 @@ import { ClimaService }from '../providers/clima-service/clima-service';
   imports: [
     BrowserModule,
     HttpModule,
-    Http,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

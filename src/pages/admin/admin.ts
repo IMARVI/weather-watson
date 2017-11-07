@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { UserModel } from '../../models/user';
-import { Http, Response, HttpModule, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders }  from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
+
+
 
 /**
  * Generated class for the AdminPage page.
@@ -21,8 +24,14 @@ import { ClimaService } from '../../providers/clima-service/clima-service';
 })
 export class AdminPage {
   datosClima: any;
-  user = new UserModel("","",true,1,"","",null);
-  activo = true;
+
+  nombre = "";
+  apellido = "";
+  activo = false;
+  role = 1;
+  email = "";
+  pass = "";
+
 
   constructor(private http : Http, public navCtrl: NavController, public navParams: NavParams, public climaService: ClimaService,) {
   }
@@ -31,18 +40,19 @@ export class AdminPage {
   }
 
   regUser(){
-    var data = JSON.stringify({
-      "nombre" : this.user.nombre,
-      "pellido" : this.user.apellido,
-      "activo" : this.user.activo,
-      "role" : this.user.activo, //0 = admin, 1 = user
-      "email" : this.user.email,
-      "pass" : this.user.pass,
-      "ciudadesFav" : null
-    });
-    this.http.post('http://localhost:3000/api/Usuarios',data,{
-      headers: new Headers().set( Accept : "pplication/json")
-    }).subscribe();
+    var js = {
+    'nombre' : this.nombre,
+    'apellidos' : this.apellido,
+    'activo' : this.activo,
+    'role' : this.activo, //0 = admin, 1 = user
+    'email' : this.email,
+    'pass' : this.pass,
+    'ciudadesFav' : []
+  }
+    var data = JSON.stringify(js);
+    console.log (data);
+    var header = new Headers({"Content-Type":"application/json", "Accept": "application/json" })
+    this.http.post('http://localhost:3000/api/Usuarios',data, {headers: header}).subscribe();
   }
 
   ngDoCheck() {

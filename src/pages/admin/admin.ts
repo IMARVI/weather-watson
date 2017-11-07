@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { UserModel } from '../../models/user';
-import { HttpClient, HttpHeaders }  from '@angular/common/http';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response} from '@angular/http';
 
 
 
@@ -24,6 +23,10 @@ import { ClimaService } from '../../providers/clima-service/clima-service';
 })
 export class AdminPage {
   datosClima: any;
+  datosUsrs: any;
+
+  nuevo = false;
+  verUsrs = false;
 
   nombre = "";
   apellido = "";
@@ -53,6 +56,8 @@ export class AdminPage {
     console.log (data);
     var header = new Headers({"Content-Type":"application/json", "Accept": "application/json" })
     this.http.post('http://localhost:3000/api/Usuarios',data, {headers: header}).subscribe();
+
+    this.nuevo = false;
   }
 
   ngDoCheck() {
@@ -70,6 +75,25 @@ export class AdminPage {
       //console.log(this.datosClima.display_location.city);
       //console.log(this.datosClima);
     }
+
+  }
+
+  showNewUsr(){
+    this.nuevo= true;
+    this.verUsrs=false;
+  }
+
+  verUsr(){
+    var header = new Headers({"Accept": "application/json" })    
+    this.http.get('http://localhost:3000/api/Usuarios',{headers:header}).map(
+      (response: Response) => {
+        return response.json();
+      }).subscribe(
+        (response) => console.log(this.datosUsrs = response),
+        (error) => console.log(error)
+    );
+    this.verUsrs = true;
+    this.nuevo = false;
   }
 
 }

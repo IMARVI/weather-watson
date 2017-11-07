@@ -31,7 +31,7 @@ import { ClimaService }from '../providers/clima-service/clima-service';
   imports: [
     BrowserModule,
     HttpModule,
-
+    Http,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

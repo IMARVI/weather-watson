@@ -56,7 +56,7 @@ export class HomePage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.latitudActual =resp.coords.latitude;
       this.longitudActual=resp.coords.longitude;
-      console.log(resp);
+      //console.log(resp);
      }).catch((error) => {
        console.log('Error getting location', error);
      });
@@ -85,12 +85,12 @@ export class HomePage {
   ngDoCheck() {
     if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
-        this.datosClima.display_location.full,
-        this.datosClima.feelslike_c,
-        this.datosClima.image.url,
-        this.datosClima.precip_today_metric,
-        this.datosClima.relative_humidity,
-        this.datosClima.wind_kph
+        this.datosClima.location.city + ", " + this.datosClima.location.region ,
+        this.datosClima.item.condition.temp + "º " + this.datosClima.units.temperature,
+        this.datosClima.item.condition.code,
+        this.datosClima.atmosphere.pressure + " " + this.datosClima.units.pressure ,
+        this.datosClima.atmosphere.humidity + "%",
+        this.datosClima.wind.speed + " " + this.datosClima.units.speed 
       );
       this.showFullInfo(nuevoClima);
 
@@ -103,12 +103,12 @@ export class HomePage {
       this.callWeatherApiLatLong(this.latitudActual, this.longitudActual);
       if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
-        this.datosClima.display_location.full,
-        this.datosClima.feelslike_c,
-        this.datosClima.image.url,
-        this.datosClima.precip_today_metric,
-        this.datosClima.relative_humidity,
-        this.datosClima.wind_kph
+        this.datosClima.location.city + ", " + this.datosClima.location.region ,
+        this.datosClima.item.condition.temp + " " + this.datosClima.units.temperature,
+        this.datosClima.item.condition.code,
+        this.datosClima.atmosphere.pressure + " " + this.datosClima.units.pressure ,
+        this.datosClima.atmosphere.humidity,
+        this.datosClima.wind.speed + " " + this.datosClima.units.speed 
       );
       this.showFullInfo(nuevoClima);
     }
@@ -117,6 +117,7 @@ export class HomePage {
       this.latitudActual= null;
     }
   }
+
   showFullInfo(item: TarjetaModel){
     var modal = this.modalCtrl.create(AddTaskModalPage,item);
     modal.present();
@@ -126,7 +127,7 @@ export class HomePage {
 
     if(ciudad.length>0){
       this.climaService.buscarClima(ciudad).subscribe(
-        (response) => console.log(this.datosClima = response['current_observation']),
+        (response) => this.datosClima = response,
         (error) => console.log(error),
       );
       /* if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
@@ -146,7 +147,7 @@ export class HomePage {
 
   callWeatherApiLatLong(lat : string, long: string){
     this.climaService.buscarClimaCoord(lat, long).subscribe(
-      (response) => console.log(this.datosClima = response['current_observation']),
+      (response) => this.datosClima = response,
       (error) => console.log(error),
     );
   }

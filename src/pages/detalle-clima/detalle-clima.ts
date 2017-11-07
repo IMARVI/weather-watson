@@ -27,21 +27,11 @@ export class DetalleClimaPage {
   callWeatherApi(ciudad : string){
     if(ciudad.length>0){
       this.climaService.buscarClima(ciudad).subscribe(
-        (response) => console.log(this.datosClima = response['current_observation']),
+        (response) => {
+          this.datosClima = response;
+          },
         (error) => console.log(error),
           );
-          /* if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
-            let info = this.datosClima["current_observation"];
-            this.showFullInfo(
-              new TarjetaModel(
-              info.display_location.full,
-              info.feelslike_c+"°C",
-              "day-thunderstorm",
-              info.precip_today_metric+"%",
-              info.relative_humidity,
-              info.wind_kph+"km/h"
-            ));
-          } */
         }
       }
 

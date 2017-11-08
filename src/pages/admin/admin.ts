@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { UserModel } from '../../models/user';
 import { Http, Headers, Response} from '@angular/http';
+import { DetalleUsuarioPage } from '../detalle-usuario/detalle-usuario';
 
 
 
@@ -83,8 +84,15 @@ export class AdminPage {
     this.verUsrs=false;
   }
 
+  detalleUsr(usr:any){
+    this.navCtrl.push(DetalleUsuarioPage,{
+      datos : usr
+    });
+  }
+
+
   verUsr(){
-    var header = new Headers({"Accept": "application/json" })    
+    var header = new Headers({"Accept": "application/json" })
     this.http.get('http://localhost:3000/api/Usuarios',{headers:header}).map(
       (response: Response) => {
         return response.json();

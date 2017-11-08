@@ -73,15 +73,6 @@ export class HomePage {
     this.navCtrl.push(LoginPage);
   }
 
-
-  goToDetalleCima(ciudad : string){
-    if(ciudad.length>0){
-    this.navCtrl.push(DetalleClimaPage,{
-      datos : this.datosClima
-    });
-    }
-  }
-
   ngDoCheck() {
     if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
@@ -90,7 +81,7 @@ export class HomePage {
         this.datosClima.item.condition.code,
         this.datosClima.atmosphere.pressure + " " + this.datosClima.units.pressure ,
         this.datosClima.atmosphere.humidity + "%",
-        this.datosClima.wind.speed + " " + this.datosClima.units.speed 
+        this.datosClima.wind.speed + " " + this.datosClima.units.speed
       );
       this.showFullInfo(nuevoClima);
 
@@ -108,7 +99,7 @@ export class HomePage {
         this.datosClima.item.condition.code,
         this.datosClima.atmosphere.pressure + " " + this.datosClima.units.pressure ,
         this.datosClima.atmosphere.humidity,
-        this.datosClima.wind.speed + " " + this.datosClima.units.speed 
+        this.datosClima.wind.speed + " " + this.datosClima.units.speed
       );
       this.showFullInfo(nuevoClima);
     }

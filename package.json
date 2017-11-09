@@ -28,6 +28,7 @@
     "@ionic/storage": "2.0.1",
     "@types/watson-developer-cloud": "^2.31.0",
     "base-64": "^0.1.0",
+    "chart.js": "^2.7.1",
     "cordova-android": "^6.2.3",
     "cordova-plugin-advanced-http": "^1.5.10",
     "cordova-plugin-compat": "^1.2.0",

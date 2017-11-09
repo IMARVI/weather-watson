@@ -1,16 +1,45 @@
-<ion-content >
-  <ion-row>
-    <ion-item>
-      <h1>{{datos.nombre}}</h1>
-    </ion-item>
-  </ion-row>
-  <ion-row>
-    <ion-item>
-        <h1>{{datos.temperatura}}</h1>
-    </ion-item>
-  </ion-row>
+<ion-header>
+  <ion-navbar>
+    <ion-title> </ion-title>
+  </ion-navbar> 
+</ion-header>
 
+<ion-content class="login-content" padding>
+  
+<div *ngIf= "usuario">
+  <h2>Detalles de {{usuario.nombre}} </h2>
+  <div class="form-group">
+      <label>Nombre:</label>
+      <input [(ngModel)]= "usuario.nombre" placeholder="" type="text" class="form-control">
+      <small class="form-text text-muted">{{usuario.nombre}}</small>
+    </div>
+  <div class="form-group">
+    <label>Apellidos:</label>
+    <input [(ngModel)]= "usuario.matricula" placeholder="" type="text" class="form-control">
+    <small class="form-text text-muted">{{usuario.apellidos}}</small>
+  </div>
+  <div class="form-group">
+    <label>Activo:</label>
+    <input [(ngModel)]= "usuario.carrera" placeholder="" type="text" class="form-control">
+    <small class="form-text text-muted">{{usuario.activo}}</small>
+  </div>
+  <div class="form-group">
+    <label>Role:</label>
+    <input [(ngModel)]= "usuario.semestre" placeholder="" type="text" class="form-control">
+    <small class="form-text text-muted">{{usuario.role}}</small>
+  </div>
+  <div class="form-group">
+      <label>Email:</label>
+      <input [(ngModel)]= "usuario.edad" placeholder="" type="text" class="form-control">
+      <small class="form-text text-muted">{{usuario.email}}</small>
+  </div>
+  <h3>Ciudades favoritas</h3>
+  <div *ngFor= "let ciudad of usuario.ciudadesFav" class="form-group">
+    <label>{{ciudad}}:</label>
+    <input [(ngModel)]= "ciudad.calificacion" placeholder="" type="text" class="form-control">
+  </div>
+  
+  <button ion-button class="submit-btn" full (click) = save(usuario.id) class="btn btn-primary">Salvar</button>
+  <button ion-button color="danger" full (click) = delete(usuario.id) class="btn btn-primary">Eliminar</button>
+</div>
 </ion-content>
-<ion-fab bottom right>
-  <button ion-fab><ion-icon name="add"></ion-icon> </button>
-</ion-fab>

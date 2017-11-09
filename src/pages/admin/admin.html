@@ -14,7 +14,7 @@
 							</ion-item>
 
 							<ion-item>
-								<ion-input type="text" placeholder="Apellido" [(ngModel)]="apellido" [ngModelOptions]="{standalone: true}"></ion-input>
+								<ion-input type="text" placeholder="Apellidos" [(ngModel)]="apellidos" [ngModelOptions]="{standalone: true}"></ion-input>
 							</ion-item>
 
 							<ion-item>
@@ -36,7 +36,7 @@
 
 				<ion-row>
 					<ion-col class="signup-col">
-						<button ion-button class="submit-btn" full type="submit" (click)="regUser()">Registrar</button>
+						<button ion-button class="submit-btn" full (click)="regUser()">Registrar</button>
 					</ion-col>
 				</ion-row>
 

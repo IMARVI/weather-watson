@@ -30,7 +30,7 @@ export class AdminPage {
   verUsrs = false;
 
   nombre = "";
-  apellido = "";
+  apellidos = "";
   activo = false;
   role = 1;
   email = "";
@@ -46,7 +46,7 @@ export class AdminPage {
   regUser(){
     var js = {
     'nombre' : this.nombre,
-    'apellidos' : this.apellido,
+    'apellidos' : this.apellidos,
     'activo' : this.activo,
     'role' : this.activo, //0 = admin, 1 = user
     'email' : this.email,

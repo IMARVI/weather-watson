@@ -35,6 +35,13 @@
         </ion-item>
   </ion-row>
 </ion-content>
-<ion-fab bottom right>
-  <button ion-fab><ion-icon name="add"></ion-icon> </button>
-</ion-fab>
+<div *ngIf="agregar == true">
+  <ion-fab bottom right>
+    <button ion-fab mini (click) ="agregarCiudad()" ><ion-icon name="add"></ion-icon> </button>
+  </ion-fab>
+</div>
+<div *ngIf="agregar == false">
+  <ion-fab bottom right>
+    <button ion-fab mini (click) ="eliminarCiudad()"  ><ion-icon name="trash"></ion-icon> </button>
+  </ion-fab>
+</div>

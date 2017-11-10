@@ -83,7 +83,7 @@ export class HomePage {
         this.datosClima.atmosphere.humidity + "%",
         this.datosClima.wind.speed + " " + this.datosClima.units.speed
       );
-      this.showFullInfo(nuevoClima);
+      this.showFullInfo(nuevoClima, true);
 
       this.datosClima = null;
       //console.log(this.datosClima.display_location.city);
@@ -101,7 +101,7 @@ export class HomePage {
         this.datosClima.atmosphere.humidity,
         this.datosClima.wind.speed + " " + this.datosClima.units.speed
       );
-      this.showFullInfo(nuevoClima);
+      this.showFullInfo(nuevoClima, true);
     }
 
       this.datosClima = null;
@@ -109,8 +109,8 @@ export class HomePage {
     }
   }
 
-  showFullInfo(item: TarjetaModel){
-    var modal = this.modalCtrl.create(AddTaskModalPage,item);
+  showFullInfo(item: TarjetaModel, agregar: boolean){
+    var modal = this.modalCtrl.create(AddTaskModalPage,{item:item,agregar:agregar});
     modal.present();
   }
 

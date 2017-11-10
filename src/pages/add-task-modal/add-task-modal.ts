@@ -9,10 +9,12 @@ import {TarjetaModel} from '../../models/tarjeta-model';
 })
 export class AddTaskModalPage {
 
+  public agregar: boolean;
   public info: TarjetaModel;
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
-    this.info = navParams.data;
+    this.info = navParams.get('item');
+    this.agregar = navParams.get('agregar');
     //console.log(this.info);
   }
 
@@ -23,5 +25,8 @@ export class AddTaskModalPage {
   dismiss(){
     this.viewCtrl.dismiss();
   }
+
+  agregarCiudad(){}
+  eliminarCiudad(){}
 
 }

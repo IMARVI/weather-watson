@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { HomePage } from '../home/home';
 import { AdminPage } from '../admin/admin';
+import { RegistroPage } from '../registro/registro';
 
 
 @Component({
@@ -28,5 +29,9 @@ export class LoginPage {
         this.userData = {email: profile['email'], first_name: profile['first_name'], picture: profile['picture_large']['data']['url'], username: profile['name']};
       })
     })
+  }
+
+  registrar(){
+    this.navCtrl.push( RegistroPage );
   }
 }

@@ -17,6 +17,8 @@ import { HomePage } from '../pages/home/home';
 import { DetalleClimaPage } from '../pages/detalle-clima/detalle-clima';
 import { DetalleUsuarioPage } from '../pages/detalle-usuario/detalle-usuario';
 import { AdminPage } from '../pages/admin/admin';
+import { RegistroPage } from '../pages/registro/registro';
+
 
 import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
 import { ClimaService }from '../providers/clima-service/clima-service';
@@ -30,6 +32,7 @@ import { ClimaService }from '../providers/clima-service/clima-service';
     DetalleClimaPage,
     DetalleUsuarioPage,
     AddTaskModalPage,
+    RegistroPage,
     AdminPage
   ],
   imports: [
@@ -46,6 +49,7 @@ import { ClimaService }from '../providers/clima-service/clima-service';
     DetalleClimaPage,
     DetalleUsuarioPage,
     AddTaskModalPage,
+    RegistroPage,
     AdminPage
   ],
   providers: [

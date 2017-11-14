@@ -22,6 +22,7 @@ export class HomePage {
   watson: any;
   enterDetected = false;
 
+  id: string;
   latitudActual: any;
   longitudActual: any;
 
@@ -30,8 +31,11 @@ export class HomePage {
     public modalCtrl: ModalController,
     public climaService: ClimaService,
     public platform: Platform,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private navParams : NavParams
   ) {
+    this.id = navParams.get('id');
+    console.log(this.id);
     /*this.watson = new Watson({
       username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
       password: 'WdaKCf8xFsEh',
@@ -61,12 +65,7 @@ export class HomePage {
        console.log('Error getting location', error);
      });
 
-     //let watch = this.geolocation.watchPosition();
-     //watch.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      // data.coords.latitude
-      // data.coords.longitude
-     //});
+
   }
 
   goToLogin(){
@@ -121,18 +120,7 @@ export class HomePage {
         (response) => this.datosClima = response,
         (error) => console.log(error),
       );
-      /* if (this.datosClima != undefined && this.datosClima["current_observation"] != null){
-        let info = this.datosClima["current_observation"];
-        this.showFullInfo(
-          new TarjetaModel(
-          info.display_location.full,
-          info.feelslike_c+"°C",
-          "day-thunderstorm",
-          info.precip_today_metric+"%",
-          info.relative_humidity,
-          info.wind_kph+"km/h"
-        ));
-      } */
+
     }
   }
 

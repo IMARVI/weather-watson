@@ -22,9 +22,11 @@ export class HomePage {
   watson: any;
   enterDetected = false;
 
+  ciudadesUsr = false;
   id: string;
   latitudActual: any;
   longitudActual: any;
+  ciudades: any;
 
   constructor(
     public navCtrl: NavController,
@@ -36,6 +38,8 @@ export class HomePage {
   ) {
     this.id = navParams.get('id');
     console.log(this.id);
+    climaService.ciudadesFav(this.id);
+    //console.log(this.climaService.userdb);
     /*this.watson = new Watson({
       username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
       password: 'WdaKCf8xFsEh',
@@ -73,6 +77,12 @@ export class HomePage {
   }
 
   ngDoCheck() {
+    //climaService.userdb.usr[0]['ciudadesFav']
+    if(this.climaService.userdb!= undefined){
+    this.ciudadesUsr = true;
+    this.ciudades = this.climaService.userdb['ciudadesFav'];
+  }
+
     if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
         this.datosClima.location.city + ", " + this.datosClima.location.region ,
@@ -85,8 +95,7 @@ export class HomePage {
       this.showFullInfo(nuevoClima, true);
 
       this.datosClima = null;
-      //console.log(this.datosClima.display_location.city);
-      //console.log(this.datosClima);
+
     }
 
     if(this.latitudActual!= null){
@@ -106,6 +115,8 @@ export class HomePage {
       this.datosClima = null;
       this.latitudActual= null;
     }
+    if(this.ciudadesUsr != null){
+    }
   }
 
   showFullInfo(item: TarjetaModel, agregar: boolean){
@@ -118,7 +129,7 @@ export class HomePage {
     if(ciudad.length>0){
       this.climaService.buscarClima(ciudad).subscribe(
         (response) => this.datosClima = response,
-        (error) => console.log(error),
+        (error) => console.log(error)
       );
 
     }

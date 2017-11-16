@@ -13,8 +13,8 @@
 	  </ion-row>
 	</div>
 
-  <div *ngIf="climaService.cardItems">
-  <ion-card *ngFor="let item of climaService.cardItems['datos']" (click)="showFullInfo(item, false)" >
+  <div *ngIf="ciudadesUsr">
+  <ion-card *ngFor="let item of ciudades" (click)="showFullInfo(item, false)" >
   	<ion-row class="city">
 	    <ion-col>
 	    	<ion-item>
@@ -28,5 +28,4 @@
 	  </ion-row>
   </ion-card>
   </div>
-
 </ion-content>

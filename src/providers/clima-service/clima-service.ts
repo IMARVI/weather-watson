@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -14,9 +14,18 @@ export class ClimaService {
 
   public cardItems: any[];
   datos: JSON;
+  userdb: any;
 
   constructor(private http:Http) {
    this.getTarjetas();
+  }
+
+  ciudadesFav(id:string){
+    var header = new Headers({"Accept": "application/json" });
+    return this.http.get('http://localhost:3000/api/Usuarios/'+id,{headers:header}).subscribe(
+      (response) => this.userdb = response.json(),
+      (error) => console.log(error)
+    );
   }
 
   getTarjetas(){

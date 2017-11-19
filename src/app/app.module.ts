@@ -9,10 +9,11 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule }  from '@angular/common/http';
 
 import { Facebook } from '@ionic-native/facebook';
-
+import { NativeStorage } from '@ionic-native/native-storage';
 import { MyApp } from './app.component';
 
 import { LoginPage } from '../pages/login/login';
+import { UserPage } from '../pages/user/user';
 import { HomePage } from '../pages/home/home';
 import { DetalleClimaPage } from '../pages/detalle-clima/detalle-clima';
 import { DetalleUsuarioPage } from '../pages/detalle-usuario/detalle-usuario';
@@ -35,7 +36,8 @@ import { WatsonService }from '../providers/watson-service/watson-service';
     DetalleUsuarioPage,
     AddTaskModalPage,
     RegistroPage,
-    AdminPage
+    AdminPage,
+    UserPage
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { WatsonService }from '../providers/watson-service/watson-service';
     MyApp,
     HomePage,
     LoginPage,
+    UserPage,
     DetalleClimaPage,
     DetalleUsuarioPage,
     AddTaskModalPage,
@@ -62,7 +65,7 @@ import { WatsonService }from '../providers/watson-service/watson-service';
     WatsonService,
     Facebook,
     Geolocation,
-
+    NativeStorage
   ]
 })
 export class AppModule {};

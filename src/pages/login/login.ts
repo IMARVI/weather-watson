@@ -41,7 +41,7 @@ export class LoginPage {
     var header = new Headers({"Accept": "application/json" });
 
     this.http.get('http://localhost:3000/api/Usuarios/login?email='+data,{headers:header}).subscribe(
-      (response) => console.log(this.userdb = response.json()),
+      (response) => this.userdb = response.json(),
       (error) => console.log(error)
     );
   }
@@ -56,10 +56,8 @@ export class LoginPage {
 
   ngDoCheck() {
     if(this.userdb != null){
-      console.log("Dentro del primero ng");
       if(this.userdb.usr.length> 0){
         var pass = this.userdb.usr[0]["pass"];
-        console.log("dentro de 2 if ng");
         if(pass == this.pass){
           if(this.userdb.usr[0]["role"] == 0){
             this.goToAdmin();

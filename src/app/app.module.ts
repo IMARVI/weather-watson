@@ -22,6 +22,8 @@ import { RegistroPage } from '../pages/registro/registro';
 
 import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
 import { ClimaService }from '../providers/clima-service/clima-service';
+import { WatsonService }from '../providers/watson-service/watson-service';
+
 
 
 @NgModule({
@@ -57,6 +59,7 @@ import { ClimaService }from '../providers/clima-service/clima-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ClimaService,
+    WatsonService,
     Facebook,
     Geolocation,
 

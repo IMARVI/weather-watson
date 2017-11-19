@@ -71,7 +71,7 @@ export class RegistroPage {
     'ciudadesFav' : []
   }
     var data = JSON.stringify(js);
-    console.log (data);
+    //console.log (data);
     var header = new Headers({"Content-Type":"application/json", "Accept": "application/json" })
     this.http.post('http://localhost:3000/api/Usuarios',data, {headers: header}).subscribe(
       (response) => console.log(this.disponible = response.json().activo),

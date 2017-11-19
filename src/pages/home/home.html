@@ -4,7 +4,8 @@
 		<ion-row padding>
 			<h1 id="chat-welcome">
 				¿Qué deseas hacer?
-			</h1>
+      </h1>
+
 		</ion-row>
 
 	  <ion-row padding-left>
@@ -18,12 +19,12 @@
   	<ion-row class="city">
 	    <ion-col>
 	    	<ion-item>
-		      <h2>{{item.ciudad}}</h2>
-          <h1 class="italic">{{item.temperatura}}º</h1>
+		      <h2>{{item.location.city}}</h2>
+          <h1 class="italic">{{item.item.condition.temp}}º</h1>
 		    </ion-item>
 	    </ion-col>
 	    <ion-col>
-	    	<i class="wi wi-{{item.imagen}} w-icon" float-right padding></i>
+	    	<i class="wi wi-{{item.image}} w-icon" float-right padding></i>
 	    </ion-col>
 	  </ion-row>
   </ion-card>

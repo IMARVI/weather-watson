@@ -7,64 +7,45 @@ import { DetalleClimaPage } from '../detalle-clima/detalle-clima';
 
 import { TarjetaModel } from '../../models/tarjeta-model'
 import { ClimaService } from '../../providers/clima-service/clima-service';
-import { AddTaskModalPage } from '../add-task-modal/add-task-modal';
+import { WatsonService } from '../../providers/watson-service/watson-service';
 
-var Watson = require ('../../../node_modules/watson-developer-cloud/conversation/v1.js');
+import { AddTaskModalPage } from '../add-task-modal/add-task-modal';
 
 @Component({
   selector: 'page-cards',
   templateUrl: 'home.html',
-  providers: [ClimaService, Platform]
+  providers: [ClimaService, Platform, WatsonService]
 })
 
 export class HomePage {
   datosClima: any;
-  watson: any;
   enterDetected = false;
 
   ciudadesUsr = false;
+  ciudades: any;
   id: string;
+
   latitudActual: any;
   longitudActual: any;
-  ciudades: any;
+
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public climaService: ClimaService,
+    public watsonService: WatsonService,
     public platform: Platform,
     private geolocation: Geolocation,
     private navParams : NavParams
   ) {
     this.id = navParams.get('id');
-    console.log(this.id);
     climaService.ciudadesFav(this.id);
-    //console.log(this.climaService.userdb);
-    /*this.watson = new Watson({
-      username: '1583e851-63d6-4689-9bce-8ac4d3b6583a',
-      password: 'WdaKCf8xFsEh',
-      version: 'v1',
-      path: { workspace_id: 'e3183c7a-3790-4efd-9ac2-deb7740f4044' },
-      version_date: '2017-05-26'
-    });
-    this.watson.message({}, processResponse);
 
-    // Process the conversation response.
-    function processResponse(err, response) {
-      if (err) {
-        console.error(err); // something went wrong
-        return;
-      }
-      // Display the output from dialog, if any.
-      if (response.output.text.length != 0) {
-          console.log(response.output.text[0]);
-      }
-    }*/
+    watsonService.mensaje("hi");
 
     this.geolocation.getCurrentPosition().then((resp) => {
       this.latitudActual =resp.coords.latitude;
       this.longitudActual=resp.coords.longitude;
-      //console.log(resp);
      }).catch((error) => {
        console.log('Error getting location', error);
      });
@@ -73,14 +54,14 @@ export class HomePage {
   }
 
   goToLogin(){
+    this.id = null;
     this.navCtrl.push(LoginPage);
   }
 
   ngDoCheck() {
-    //climaService.userdb.usr[0]['ciudadesFav']
     if(this.climaService.userdb!= undefined){
     this.ciudadesUsr = true;
-    this.ciudades = this.climaService.userdb['ciudadesFav'];
+    this.ciudades = this.climaService.userdb;
   }
 
     if(this.datosClima != null){
@@ -93,7 +74,6 @@ export class HomePage {
         this.datosClima.wind.speed + " " + this.datosClima.units.speed
       );
       this.showFullInfo(nuevoClima, true);
-
       this.datosClima = null;
 
     }

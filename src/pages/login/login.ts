@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { HomePage } from '../home/home';
 import { AdminPage } from '../admin/admin';
 import { RegistroPage } from '../registro/registro';
 import { Http, Headers} from '@angular/http';
 import { AlertController } from 'ionic-angular';
-
+import { Facebook } from '@ionic-native/facebook';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
   selector: 'page-login',
@@ -18,12 +18,15 @@ export class LoginPage {
   email: string;
   pass: string;
   userdb = null;
+  FB_APP_ID: number = 1954803271511700;
 
   constructor(
     private http : Http,
     private alertCtrl: AlertController,
-    private facebook: Facebook,
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public fb: Facebook,
+    public nativeStorage: NativeStorage) {
+      this.fb.browserInit(this.FB_APP_ID, "v2.8");
     }
 
   goToHome(id:string){
@@ -46,14 +49,6 @@ export class LoginPage {
     );
   }
 
-  loginWithFB() {
-    this.facebook.login(['email', 'public_profile']).then((response: FacebookLoginResponse) => {
-      this.facebook.api('me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)', []).then(profile => {
-        this.userData = {email: profile['email'], first_name: profile['first_name'], picture: profile['picture_large']['data']['url'], username: profile['name']};
-      })
-    })
-  }
-
   ngDoCheck() {
     if(this.userdb != null){
       if(this.userdb.usr.length> 0){
@@ -72,6 +67,41 @@ export class LoginPage {
       }
       this.userdb = null;
     }
+  }
+
+  doFbLogin(){
+    let permissions = new Array<string>();
+    let nav = this.navCtrl;
+
+    //the permissions your facebook app needs from the user
+    permissions = ["public_profile"];
+
+    this.fb.login(permissions)
+    .then((response) => {
+      let userId = response.authResponse.userID;
+      let params = new Array<string>();
+
+      //Getting name and gender properties
+      this.fb.api("/me?fields=name,gender", params)
+      .then((user) => {
+        user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
+        //now we have the users info, let's save it in the NativeStorage
+        this.nativeStorage.setItem('user',
+        {
+          name: user.name,
+          gender: user.gender,
+          picture: user.picture
+        })
+        .then(() => {
+          //nav.push(UserPage);
+          console.log("Success");
+        },(error) => {
+          console.log(error);
+        })
+      })
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   wrongData() {

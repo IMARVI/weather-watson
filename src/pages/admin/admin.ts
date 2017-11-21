@@ -3,17 +3,7 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { UserModel } from '../../models/user';
 import { Http, Headers, Response} from '@angular/http';
 import { DetalleUsuarioPage } from '../detalle-usuario/detalle-usuario';
-
-
-
-/**
- * Generated class for the AdminPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-import { TarjetaModel } from '../../models/tarjeta-model'
+import { TarjetaModel } from '../../models/tarjeta-model';
 import { ClimaService } from '../../providers/clima-service/clima-service';
 
 @IonicPage()

@@ -37,11 +37,11 @@
 </ion-content>
 <div *ngIf="agregar == true">
   <ion-fab bottom right>
-    <button ion-fab mini (click) ="agregarCiudad()" ><ion-icon name="add"></ion-icon> </button>
+    <button ion-fab mini (click) ="agregarCiudad(info.ciudad)" ><ion-icon name="add"></ion-icon> </button>
   </ion-fab>
 </div>
 <div *ngIf="agregar == false">
   <ion-fab bottom right>
-    <button ion-fab mini (click) ="eliminarCiudad()"  ><ion-icon name="trash"></ion-icon> </button>
+    <button ion-fab mini (click) ="eliminarCiudad(info.ciudad)"  ><ion-icon name="trash"></ion-icon> </button>
   </ion-fab>
 </div>

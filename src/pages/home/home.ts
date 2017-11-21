@@ -24,6 +24,7 @@ export class HomePage {
   ciudadesUsr = false;
   ciudades: any;
   id: string;
+  data: any;
 
   latitudActual: any;
   longitudActual: any;
@@ -39,9 +40,9 @@ export class HomePage {
     private navParams : NavParams
   ) {
     this.id = navParams.get('id');
+    this.data = navParams.get('data');
     climaService.ciudadesFav(this.id);
-
-    watsonService.mensaje("hi");
+    //watsonService.mensaje("hi");
 
     this.geolocation.getCurrentPosition().then((resp) => {
       this.latitudActual =resp.coords.latitude;
@@ -59,10 +60,11 @@ export class HomePage {
   }
 
   ngDoCheck() {
+
     if(this.climaService.userdb!= undefined){
     this.ciudadesUsr = true;
     this.ciudades = this.climaService.userdb;
-  }
+    }
 
     if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
@@ -75,7 +77,6 @@ export class HomePage {
       );
       this.showFullInfo(nuevoClima, true);
       this.datosClima = null;
-
     }
 
     if(this.latitudActual!= null){
@@ -100,18 +101,36 @@ export class HomePage {
   }
 
   showFullInfo(item: TarjetaModel, agregar: boolean){
-    var modal = this.modalCtrl.create(AddTaskModalPage,{item:item,agregar:agregar});
+    var modal = this.modalCtrl.create(AddTaskModalPage,{
+      item:item,
+      agregar:agregar,
+      id:this.id,
+      ciudades:this.ciudades
+    });
     modal.present();
+    this.climaService.ciudadesFav(this.id);
+  }
+
+  showFullInfo2(item: any, agregar: boolean){
+    let nuevoClima = new TarjetaModel(
+      item.location.city+", "+ item.location.region,
+      item.item.condition.temp,
+      item.image,
+      item.atmosphere.pressure,
+      item.atmosphere.humidity,
+      item.wind.speed
+    );
+    var modal = this.modalCtrl.create(AddTaskModalPage,{item:nuevoClima,agregar:agregar,id:this.id, ciudades:this.ciudades});
+    modal.present();
+    this.climaService.ciudadesFav(this.id);
   }
 
   callWeatherApi(ciudad : string){
-
     if(ciudad.length>0){
       this.climaService.buscarClima(ciudad).subscribe(
         (response) => this.datosClima = response,
         (error) => console.log(error)
       );
-
     }
   }
 

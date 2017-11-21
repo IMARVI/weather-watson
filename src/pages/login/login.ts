@@ -31,7 +31,8 @@ export class LoginPage {
 
   goToHome(id:string){
     this.navCtrl.push(HomePage,{
-      id: id
+      id: id,
+      data: this.userdb.usr[0]
     });
   }
 
@@ -57,7 +58,10 @@ export class LoginPage {
           if(this.userdb.usr[0]["role"] == 0){
             this.goToAdmin();
           }else{
-            this.goToHome(this.userdb.usr[0]["id"]);
+            this.goToHome(
+              this.userdb.usr[0]["id"]
+
+            );
           }
         }else{
           this.wrongData();

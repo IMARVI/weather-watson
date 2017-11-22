@@ -4,7 +4,9 @@
 
 Install:
  ```
-ionic serve
+npm install
+ionic cordova prepare
+ionic cordova run browser
 ```
 
 Swagger file

@@ -25,7 +25,7 @@ import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
 import { ClimaService }from '../providers/clima-service/clima-service';
 import { WatsonService }from '../providers/watson-service/watson-service';
 
-
+import { Chart } from 'chart.js';
 
 @NgModule({
   declarations: [

@@ -1,3 +1,49 @@
 page-add-task-modal {
+	#back {
+		font-size: 3em;
+	}
+	#logo-weather {
+		font-size: 128px;
+	}
+	#temp {
+		text-align: right;
+	}
+	#data {
+		text-align: left;
+	}
 
+	#temp h1 {
+		font-size: 6em;
+		font-weight: 100;
+		font-style: italic;
+	}
+
+	#data h1 {
+		font-size: 1em;
+		line-height: 0.5;
+		font-weight: 300;
+	}
+
+	#city h1 {
+		font-weight: 300;
+	}
+	.forecast h2{
+		font-weight: 300;
+	}
+
+	.forecast .day {
+		text-align: right;
+	}
+	.forecast .icon {
+		text-align: center;
+	}
+	.high {
+		font-weight: 400;	
+	}
+	.sun ion-col {
+		text-align: center;
+	}
+	.sun ion-col h4{
+		font-weight: 300;
+	}
 }

@@ -5,6 +5,9 @@ export class TarjetaModel{
     public imagen:string,
     public precipitacion: string,
     public humedad: string,
-    public viento: string
+    public viento: string,
+    public forecast: any[],
+    public sunrise: string,
+    public sunset: string
   ){}
 }

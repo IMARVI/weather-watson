@@ -1,5 +1,5 @@
 <ion-content id="main">
-
+	<ion-icon id="back" name="log-out" padding float-right (click)="goToLogin()"></ion-icon>
 	<div id="chat">
 		<ion-row padding>
 			<h1 id="chat-welcome">
@@ -24,7 +24,7 @@
 		    </ion-item>
 	    </ion-col>
 	    <ion-col>
-	    	<i class="wi wi-{{item.image}} w-icon" float-right padding></i>
+	    	<i class="wi wi-yahoo-{{item.item.condition.code}} w-icon" float-right padding></i>
 	    </ion-col>
 	  </ion-row>
   </ion-card>

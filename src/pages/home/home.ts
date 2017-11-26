@@ -11,6 +11,7 @@ import { WatsonService } from '../../providers/watson-service/watson-service';
 
 import { AddTaskModalPage } from '../add-task-modal/add-task-modal';
 
+
 @Component({
   selector: 'page-cards',
   templateUrl: 'home.html',
@@ -20,6 +21,10 @@ import { AddTaskModalPage } from '../add-task-modal/add-task-modal';
 export class HomePage {
   datosClima: any;
   enterDetected = false;
+  wText: string;
+  wOps = false;
+
+  wResponse: any;
 
   ciudadesUsr = false;
   ciudades: any;
@@ -41,17 +46,23 @@ export class HomePage {
   ) {
     this.id = navParams.get('id');
     this.data = navParams.get('data');
+    console.log(this.data);
     climaService.ciudadesFav(this.id);
-    //watsonService.mensaje("hi");
+    this.wText = "Bienvenido "+this.data.nombre;
 
-    this.geolocation.getCurrentPosition().then((resp) => {
+    //watsonService.mensaje("dame el clima en texas");
+    /* this.geolocation.getCurrentPosition().then((resp) => {
       this.latitudActual =resp.coords.latitude;
       this.longitudActual=resp.coords.longitude;
      }).catch((error) => {
        console.log('Error getting location', error);
-     });
+     }); */
 
 
+  }
+
+  showChatOps(bol:boolean){
+    this.wOps = !this.wOps;
   }
 
   goToLogin(){
@@ -102,8 +113,44 @@ export class HomePage {
       this.datosClima = null;
       this.latitudActual= null;
     }
-    if(this.ciudadesUsr != null){
+
+    if(this.wResponse != undefined ){
+      console.log("DENTRO DE NGDOCHANGE WRESPONSE");
+
+      //Clima de mi ubicacion
+      if(this.wResponse.entities.length==0 &&
+      this.wResponse.intents[0].intent == "GiveMeWeatherToday"){
+        this.geolocation.getCurrentPosition().then((resp) => {
+          this.latitudActual =resp.coords.latitude;
+          this.longitudActual=resp.coords.longitude;
+         }).catch((error) => {
+           console.log('Error getting location', error);
+         });
+      }
+
+      //Clima de alguna ciudad
+      if(this.wResponse.entities.length>0){
+        var ciudad =this.wResponse.entities[0].value;
+        console.log(ciudad);
+        this.callWeatherApi(ciudad);
+      }
+
+        //saludando a weather-api
+      if(this.wResponse.entities.length==0 && this.wResponse.intents[0].intent == "Greetings"){
+          this.wText = this.wResponse.output.text[0];
+          //.output.text[0]
+        }
+
+      if(this.wResponse.entities.length==0 && this.wResponse.intents[0].intent == "AnythingElse"){
+          this.wText = this.wResponse.output.text[0];
+        }
+
+      this.wResponse = undefined;
+
+
     }
+
+
   }
 
   showFullInfo(item: TarjetaModel, agregar: boolean){
@@ -148,5 +195,13 @@ export class HomePage {
       (response) => this.datosClima = response,
       (error) => console.log(error),
     );
+  }
+
+  watsonConversation(mensaje:string){
+    this.watsonService.mensaje(mensaje).subscribe(
+      (response) => console.log(this.wResponse = response.json()),//.output.text[0] ),
+      (error) => console.log(error)
+    );
+
   }
 }

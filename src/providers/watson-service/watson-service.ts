@@ -3,7 +3,6 @@ import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class WatsonService{
-  wResponse: any;
   constructor(
     private http:Http,
 
@@ -24,10 +23,7 @@ export class WatsonService{
         "Authorization": "Basic MTU4M2U4NTEtNjNkNi00Njg5LTliY2UtOGFjNGQzYjY1ODNhOldkYUtDZjh4RnNFaA=="
        });
 
-    this.http.post('https://watson-api-explorer.mybluemix.net/conversation/api/v1/workspaces/e3183c7a-3790-4efd-9ac2-deb7740f4044/message?version=2017-05-26',body,{headers:header}).subscribe(
-      (response) => console.log(this.wResponse = response.json()),
-      (error) => console.log(error)
-    );
+    return this.http.post('https://watson-api-explorer.mybluemix.net/conversation/api/v1/workspaces/a18b3e20-f01c-4a7a-91c8-8e367e5d45e5/message?version=2017-05-26',body,{headers:header})
   }
 
 

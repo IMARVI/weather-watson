@@ -27,7 +27,7 @@ export class HomePage {
   wResponse: any;
 
   ciudadesUsr = false;
-  ciudades: any;
+  ciudades: JSON[];
   id: string;
   data: any;
 
@@ -74,7 +74,14 @@ export class HomePage {
 
     if(this.climaService.userdb!= undefined){
     this.ciudadesUsr = true;
+
+    if(this.climaService.userdb instanceof Array){
     this.ciudades = this.climaService.userdb;
+    }else{
+      this.ciudades = [];
+      this.ciudades.push(this.climaService.userdb);
+      console.log(this.ciudades);
+      }
     }
 
     if(this.datosClima != null){

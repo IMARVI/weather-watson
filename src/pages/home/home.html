@@ -1,15 +1,14 @@
 <ion-content id="main">
-	<ion-icon id="back" name="log-out" padding float-right (click)="goToLogin()"></ion-icon>
+  <ion-icon id="back" name="log-out" padding float-right (click)="goToLogin()"></ion-icon>
 	<div id="chat">
+
 		<ion-row padding>
 			<h2 id="chat-welcome">
 				{{wText}}
       </h2>
-
 		</ion-row>
 
 	  <ion-row padding-left>
-      <!-- (keyup.enter)="callWeatherApi($event.target.value)" -->
 	    <ion-input placeholder="Escribe algo..."  id="chat-input"
 	    type=text (click)="showChatOps(true)" (keyup.enter)="watsonConversation($event.target.value)" > </ion-input>
 	  </ion-row>

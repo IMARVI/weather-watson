@@ -15,6 +15,14 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@function set-text-color($color) {
+	@if (lightness($color) > 70) {
+		@return #5D5D5D;
+	} @else {
+		@return #FFF;
+	}
+}
+
 input::-webkit-input-placeholder {
 color: #6B818C !important;
 }
@@ -29,4 +37,9 @@ color: #6B818C !important;
  
 input:-ms-input-placeholder {  
 color: #6B818C !important;  
+}
+
+.main {
+		background-color: color($colors, base);
+		color: set-text-color(color($colors, base));	
 }

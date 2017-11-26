@@ -69,11 +69,14 @@ export class HomePage {
     if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
         this.datosClima.location.city + ", " + this.datosClima.location.region ,
-        this.datosClima.item.condition.temp + "º " + this.datosClima.units.temperature,
+        this.datosClima.item.condition.temp + "º",
         this.datosClima.item.condition.code,
         this.datosClima.atmosphere.pressure + " " + this.datosClima.units.pressure ,
         this.datosClima.atmosphere.humidity + "%",
-        this.datosClima.wind.speed + " " + this.datosClima.units.speed
+        this.datosClima.wind.speed + " " + this.datosClima.units.speed,
+        this.datosClima.item.forecast,
+        this.datosClima.astronomy.sunrise,
+        this.datosClima.astronomy.sunset
       );
       this.showFullInfo(nuevoClima, true);
       this.datosClima = null;
@@ -84,11 +87,14 @@ export class HomePage {
       if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
         this.datosClima.location.city + ", " + this.datosClima.location.region ,
-        this.datosClima.item.condition.temp + " " + this.datosClima.units.temperature,
+        this.datosClima.item.condition.temp + " º" + this.datosClima.units.temperature,
         this.datosClima.item.condition.code,
         this.datosClima.atmosphere.pressure + " " + this.datosClima.units.pressure ,
         this.datosClima.atmosphere.humidity,
-        this.datosClima.wind.speed + " " + this.datosClima.units.speed
+        this.datosClima.wind.speed + " " + this.datosClima.units.speed,
+        this.datosClima.item.forecast,
+        this.datosClima.astronomy.sunrise,
+        this.datosClima.astronomy.sunset
       );
       this.showFullInfo(nuevoClima, true);
     }
@@ -114,11 +120,14 @@ export class HomePage {
   showFullInfo2(item: any, agregar: boolean){
     let nuevoClima = new TarjetaModel(
       item.location.city+", "+ item.location.region,
-      item.item.condition.temp,
-      item.image,
-      item.atmosphere.pressure,
-      item.atmosphere.humidity,
-      item.wind.speed
+      item.item.condition.temp + "º",
+      item.item.condition.code,
+      item.atmosphere.pressure + " " + item.units.pressure ,
+      item.atmosphere.humidity + "%",
+      item.wind.speed + " " + item.units.speed,
+      item.item.forecast,
+      item.astronomy.sunrise,
+      item.astronomy.sunset
     );
     var modal = this.modalCtrl.create(AddTaskModalPage,{item:nuevoClima,agregar:agregar,id:this.id, ciudades:this.ciudades});
     modal.present();

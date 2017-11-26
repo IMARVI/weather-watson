@@ -59,7 +59,10 @@ export class AdminPage {
         this.datosClima.image.url,
         this.datosClima.precip_today_metric,
         this.datosClima.relative_humidity,
-        this.datosClima.wind_kph
+        this.datosClima.wind_kph,
+        this.datosClima.forecast,
+        this.datosClima.sunrise,
+        this.datosClima.sunset
       );
 
       this.datosClima = null;

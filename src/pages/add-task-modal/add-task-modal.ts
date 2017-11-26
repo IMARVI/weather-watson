@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, ViewController, NavParams, NavController } from 'ionic-angular';
 import {TarjetaModel} from '../../models/tarjeta-model';
 import { Http, Headers} from '@angular/http';
-
+import { Chart } from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -10,12 +10,14 @@ import { Http, Headers} from '@angular/http';
   templateUrl: 'add-task-modal.html',
 })
 export class AddTaskModalPage {
+  @ViewChild('lineCanvas') lineCanvas;
   public agregar: boolean;
   public info: TarjetaModel;
   private ciudades:string[];
   private cf: string[];
   private id: string;
 
+  lineChart: any;
   constructor(
     private http:Http,
     public viewCtrl: ViewController,
@@ -83,6 +85,84 @@ export class AddTaskModalPage {
       //console.log(aux[x]);
     }
     return aux;
+  }
+
+  ionViewDidLoad() {
+    var dayLabel = [];
+    var dayForecastHigh = [];
+    var dayForecastLow = [];
+    this.info.forecast.forEach(function(element) {
+      dayLabel.push(element.day);
+      dayForecastHigh.push(element.high);
+      dayForecastLow.push(element.low);
+    }); 
+    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+            type: 'line',
+            data: {
+                labels: dayLabel,
+                datasets: [
+                    {
+                        label: "Max.",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: dayForecastHigh,
+                        spanGaps: false,
+                    },
+                    {
+                        label: "Min.",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(196,88,80,0.4)",
+                        borderColor: "rgba(196, 88, 80, 1)",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: dayForecastLow,
+                        spanGaps: false,
+                    }
+                ]
+            },
+            options: {
+              legend: {
+                  labels: {
+                      fontColor: "white",
+                  }
+              },
+              scales: {
+              xAxes: [{
+                          gridLines: {
+                              color: "rgba(0, 0, 0, 0)",
+                          },
+                          ticks: {
+                            fontColor: "white"
+                          }
+                      }],
+              yAxes: [{
+                          gridLines: {
+                              color: "rgba(0, 0, 0, 0)",
+                          },
+                          display: false
+                      }]
+              }
+            }
+        });
   }
 
 }

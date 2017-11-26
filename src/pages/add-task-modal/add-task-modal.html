@@ -1,39 +1,48 @@
-<ion-header>
-  <ion-toolbar color="primary" >
-    <ion-title>Weather bot</ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <ion-icon name="md-close"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content >
-  <ion-row>
-    <ion-item>
+<ion-content class="main">
+  <ion-icon id="back" name="arrow-back" padding (click)="dismiss()"></ion-icon>
+<ion-grid>
+  <ion-row justify-content-center>
+      <i id="logo-weather" class="wi wi-yahoo-{{info.imagen}} w-icon"></i>
+  </ion-row>
+  <ion-row justify-content-center id="city">
       <h1>{{info.ciudad}}</h1>
-    </ion-item>
+  </ion-row>
+  <ion-row justify-self-center align-items-start>
+    <ion-col align-self-start id="temp">
+          <h1 no-margin>{{info.temperatura}}</h1>
+    </ion-col>
+    <ion-col id="data">
+        <h1 margin-left>Presión: {{info.precipitacion}}</h1>
+        <h1 margin-left>Humedad: {{info.humedad}}</h1>
+        <h1 margin-left>Viento: {{info.viento}}</h1>
+    </ion-col>
   </ion-row>
   <ion-row>
-    <ion-item>
-        <h1>{{info.temperatura}}</h1>
-    </ion-item>
+    <canvas #lineCanvas>
+    </canvas>
   </ion-row>
-  <ion-row>
-      <i class="wi wi-yahoo-{{info.imagen}} w-icon"></i>
+  <ion-row class="sun">
+    <ion-col>
+      <i class="wi wi-sunrise w-icon"></i>
+      <h4>{{info.sunrise}}</h4>
+    </ion-col>
+    <ion-col>
+      <i class="wi wi-sunset w-icon"></i>
+      <h4>{{info.sunset}}</h4>
+    </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-item>
-      <h1>Presión: {{info.precipitacion}}</h1>
-    </ion-item>
-    <ion-item>
-        <h1>Humedad: {{info.humedad}}</h1>
-      </ion-item>
-      <ion-item>
-          <h1>Viento: {{info.viento}}</h1>
-        </ion-item>
+  <ion-row *ngFor="let fc of info.forecast" class="forecast" justify-content-center>
+    <ion-col class="day">
+     <h2>{{fc.day}}</h2>
+    </ion-col>
+    <ion-col class="icon" align-self-center>
+      <i class="wi wi-yahoo-{{fc.code}} w-icon"></i>
+    </ion-col>  
+    <ion-col>
+      <h2><span class="high" padding-right>{{fc.high}}</span>{{fc.low}}</h2>
+    </ion-col>
   </ion-row>
+</ion-grid>
 </ion-content>
 <div *ngIf="agregar == true">
   <ion-fab bottom right>

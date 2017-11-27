@@ -20,6 +20,33 @@ export class ClimaService {
    this.getTarjetas();
   }
 
+  agregarCiudadWatson( ciudad:string, id:string, ciudades:any[] ){
+    //console.log(this.ciudades[0]["location"]["city"]);
+    var aux = this.convertirArreglo(ciudades);
+    aux.push(ciudad);
+
+    var js = {
+      'ciudadesFav' : aux
+    }
+    var data = JSON.stringify(js);
+    console.log(data);
+    var header = new Headers({"Content-Type":"application/json"})
+    this.http.patch('http://localhost:3000/api/Usuarios/'+id, data, {headers: header}).subscribe();
+  }
+
+  convertirArreglo(ciudades:any[]){
+    var aux = [];
+    if(ciudades!= undefined){
+      for(var x = 0; x < ciudades.length;x++){
+        //console.log(this.ciudades[x]["location"]["city"]);
+        aux.push(ciudades[x]["location"]["city"]+", "+ciudades[x]["location"]["region"]);
+        //console.log(aux[x]);
+      }
+    }
+    return aux;
+  }
+
+
   ciudadesFav(id:string){
     new Promise((resolve, reject) => {
       var header = new Headers({"Accept": "application/json" });

@@ -116,9 +116,9 @@ export class HomePage {
       }
 
       //Clima de alguna ciudad
-      if(this.wResponse.entities.length>0){
+      if(this.wResponse.entities.length>0 && this.wResponse.intents[0].intent != "Addcity"){
         var ciudad =this.wResponse.entities[0].value;
-        console.log(ciudad);
+        //console.log(ciudad);
         this.callWeatherApi(ciudad);
       }
 
@@ -131,6 +131,14 @@ export class HomePage {
         //no se encontro nada
       if(this.wResponse.entities.length==0 && this.wResponse.intents[0].intent == "AnythingElse"){
         this.wText = this.wResponse.output.text[0];
+      }
+
+      //agregar ciudad desde chatbot
+      if(this.wResponse.entities.length>0 && this.wResponse.intents[0].intent == "Addcity"){
+        var city =this.wResponse.entities[0].value;
+        console.log(this.ciudades);
+        this.climaService.agregarCiudadWatson(city,this.id, this.ciudades);
+        console.log(city);
       }
 
       this.wResponse = undefined;

@@ -75,8 +75,6 @@ export class LoginPage {
 
   doFbLogin(){
     let permissions = new Array<string>();
-    let nav = this.navCtrl;
-
     //the permissions your facebook app needs from the user
     permissions = ["public_profile"];
 

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-import { UserModel } from '../../models/user';
 import { Http, Headers, Response} from '@angular/http';
 import { DetalleUsuarioPage } from '../detalle-usuario/detalle-usuario';
 import { TarjetaModel } from '../../models/tarjeta-model';
@@ -53,7 +52,7 @@ export class AdminPage {
 
   ngDoCheck() {
     if(this.datosClima != null){
-      let nuevoClima = new TarjetaModel(
+      new TarjetaModel(
         this.datosClima.display_location.full,
         this.datosClima.feelslike_c,
         this.datosClima.image.url,

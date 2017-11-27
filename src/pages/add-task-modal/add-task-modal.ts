@@ -3,6 +3,8 @@ import { IonicPage, ViewController, NavParams, NavController } from 'ionic-angul
 import {TarjetaModel} from '../../models/tarjeta-model';
 import { Http, Headers} from '@angular/http';
 import { Chart } from 'chart.js';
+import { HomePage } from '../home/home';
+
 
 @IonicPage()
 @Component({
@@ -16,6 +18,7 @@ export class AddTaskModalPage {
   private ciudades:string[];
   private cf: string[];
   private id: string;
+  private data: any;
 
   lineChart: any;
   constructor(
@@ -28,6 +31,7 @@ export class AddTaskModalPage {
     this.agregar = navParams.get('agregar');
     this.ciudades = navParams.get('ciudades');
     this.id = navParams.get('id');
+    this.data = navParams.get('data');
     console.log(this.ciudades);
 
   }
@@ -54,35 +58,35 @@ export class AddTaskModalPage {
   eliminarCiudad(ciudad:string){
     var aux = this.convertirArreglo();
     var nuevo= [];
-    console.log(ciudad);
-    console.log(aux);
 
     for(var x = 0; x < aux.length; x++){
-      console.log(aux[x]);
-      console.log(ciudad);
+      //console.log(aux[x]);
+      //console.log(ciudad);
       if (aux[x]!= ciudad){
         nuevo.push(this.ciudades[x]["location"]["city"]+", "+this.ciudades[x]["location"]["region"]);
       }
     }
-    console.log(nuevo);
 
     var js = {
       'ciudadesFav' : nuevo
     }
 
     var data = JSON.stringify(js);
-    console.log(data);
+    //console.log(data);
     var header = new Headers({"Content-Type":"application/json"})
     this.http.patch('http://localhost:3000/api/Usuarios/'+this.id, data, {headers: header}).subscribe();
+
     this.navCtrl.pop();
   }
 
   convertirArreglo(){
     var aux = [];
-    for(var x = 0; x < this.ciudades.length;x++){
-      //console.log(this.ciudades[x]["location"]["city"]);
-      aux.push(this.ciudades[x]["location"]["city"]+", "+this.ciudades[x]["location"]["region"]);
-      //console.log(aux[x]);
+    if(this.ciudades!= undefined){
+      for(var x = 0; x < this.ciudades.length;x++){
+        //console.log(this.ciudades[x]["location"]["city"]);
+        aux.push(this.ciudades[x]["location"]["city"]+", "+this.ciudades[x]["location"]["region"]);
+        //console.log(aux[x]);
+      }
     }
     return aux;
   }
@@ -95,7 +99,7 @@ export class AddTaskModalPage {
       dayLabel.push(element.day);
       dayForecastHigh.push(element.high);
       dayForecastLow.push(element.low);
-    }); 
+    });
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
             type: 'line',
             data: {

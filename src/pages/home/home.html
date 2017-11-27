@@ -22,8 +22,8 @@
 
 
   <div *ngIf="ciudadesUsr">
-  <ion-card *ngFor="let item of ciudades" (click)="showFullInfo2(item, false)" >
-  	<ion-row class="city">
+  <ion-card *ngFor="let item of ciudades"  >
+  	<ion-row class="city" (click)="showFullInfo2(item, false)" >
 	    <ion-col>
 	    	<ion-item>
 		      <h2>{{item.location.city}}</h2>

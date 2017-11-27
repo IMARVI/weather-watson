@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, Platform } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Platform , ViewController} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { LoginPage } from '../login/login';
-import { DetalleClimaPage } from '../detalle-clima/detalle-clima';
 
 import { TarjetaModel } from '../../models/tarjeta-model'
 import { ClimaService } from '../../providers/clima-service/clima-service';
@@ -28,6 +27,8 @@ export class HomePage {
 
   ciudadesUsr = false;
   ciudades: JSON[];
+  differ: any;
+
   id: string;
   data: any;
 
@@ -42,22 +43,14 @@ export class HomePage {
     public watsonService: WatsonService,
     public platform: Platform,
     private geolocation: Geolocation,
-    private navParams : NavParams
+    private navParams : NavParams,
+    private viewCtrl: ViewController
   ) {
     this.id = navParams.get('id');
     this.data = navParams.get('data');
     console.log(this.data);
     climaService.ciudadesFav(this.id);
     this.wText = "Bienvenido "+this.data.nombre;
-
-    //watsonService.mensaje("dame el clima en texas");
-    /* this.geolocation.getCurrentPosition().then((resp) => {
-      this.latitudActual =resp.coords.latitude;
-      this.longitudActual=resp.coords.longitude;
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     }); */
-
 
   }
 
@@ -71,18 +64,6 @@ export class HomePage {
   }
 
   ngDoCheck() {
-
-    if(this.climaService.userdb!= undefined){
-    this.ciudadesUsr = true;
-
-    if(this.climaService.userdb instanceof Array){
-    this.ciudades = this.climaService.userdb;
-    }else{
-      this.ciudades = [];
-      this.ciudades.push(this.climaService.userdb);
-      console.log(this.ciudades);
-      }
-    }
 
     if(this.datosClima != null){
       let nuevoClima = new TarjetaModel(
@@ -122,7 +103,6 @@ export class HomePage {
     }
 
     if(this.wResponse != undefined ){
-      console.log("DENTRO DE NGDOCHANGE WRESPONSE");
 
       //Clima de mi ubicacion
       if(this.wResponse.entities.length==0 &&
@@ -148,13 +128,25 @@ export class HomePage {
           //.output.text[0]
         }
 
+        //no se encontro nada
       if(this.wResponse.entities.length==0 && this.wResponse.intents[0].intent == "AnythingElse"){
-          this.wText = this.wResponse.output.text[0];
-        }
+        this.wText = this.wResponse.output.text[0];
+      }
 
       this.wResponse = undefined;
 
+    }
 
+    if(this.climaService.userdb!= undefined){
+      this.ciudadesUsr = true;
+
+      if(this.climaService.userdb instanceof Array){
+      this.ciudades = this.climaService.userdb;
+
+      }else{
+        this.ciudades = [];
+        this.ciudades.push(this.climaService.userdb);
+      }
     }
 
 
@@ -165,10 +157,12 @@ export class HomePage {
       item:item,
       agregar:agregar,
       id:this.id,
-      ciudades:this.ciudades
+      ciudades:this.ciudades,
+      data:this.data
     });
     modal.present();
     this.climaService.ciudadesFav(this.id);
+    this.ciudades = null;
   }
 
   showFullInfo2(item: any, agregar: boolean){
@@ -183,9 +177,10 @@ export class HomePage {
       item.astronomy.sunrise,
       item.astronomy.sunset
     );
-    var modal = this.modalCtrl.create(AddTaskModalPage,{item:nuevoClima,agregar:agregar,id:this.id, ciudades:this.ciudades});
+    var modal = this.modalCtrl.create(AddTaskModalPage,{item:nuevoClima,agregar:agregar,id:this.id, ciudades:this.ciudades,data:this.data});
     modal.present();
     this.climaService.ciudadesFav(this.id);
+    this.ciudades = null;
   }
 
   callWeatherApi(ciudad : string){
@@ -206,7 +201,7 @@ export class HomePage {
 
   watsonConversation(mensaje:string){
     this.watsonService.mensaje(mensaje).subscribe(
-      (response) => console.log(this.wResponse = response.json()),//.output.text[0] ),
+      (response) => console.log(this.wResponse = response.json()),
       (error) => console.log(error)
     );
 

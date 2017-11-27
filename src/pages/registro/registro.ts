@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Http, Headers, Response} from '@angular/http';
-import { UserModel } from '../../models/user';
+import { Http, Headers} from '@angular/http';
 import { AlertController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login'

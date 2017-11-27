@@ -140,6 +140,10 @@ export class HomePage {
         this.climaService.agregarCiudadWatson(city,this.id, this.ciudades);
         console.log(city);
       }
+      //cerrar app
+      if(this.wResponse.entities.length == 0 && this.wResponse.intents[0].intent == "Goodbye"){
+        this.navCtrl.pop();
+      }
 
       this.wResponse = undefined;
 

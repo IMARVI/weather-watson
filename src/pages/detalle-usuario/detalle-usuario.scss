@@ -1,3 +1,5 @@
 page-detalle-usuario {
-
+	.submit-btn {
+       background: darken(color($colors, base), 3);
+     }
 }

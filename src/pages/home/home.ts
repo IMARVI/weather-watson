@@ -45,13 +45,18 @@ export class HomePage {
     private geolocation: Geolocation,
     private navParams : NavParams,
     private viewCtrl: ViewController
-  ) {
-    this.id = navParams.get('id');
-    this.data = navParams.get('data');
-    console.log(this.data);
-    climaService.ciudadesFav(this.id);
-    this.wText = "Bienvenido "+this.data.nombre;
+  ) {}
 
+  ionViewDidLoad() {
+      this.id = this.navParams.get('id');
+      this.data = this.navParams.get('data');
+      this.climaService.ciudadesFav(this.id);
+      this.wText = "Bienvenido "+this.data.nombre;
+  }
+
+  ionViewWillEnter() {
+
+      //this.data.ciudadesFav = this.climaService.ciudadesFav(this.id);
   }
 
   showChatOps(bol:boolean){
@@ -172,6 +177,9 @@ export class HomePage {
       ciudades:this.ciudades,
       data:this.data
     });
+    modal.onWillDismiss(() => {
+      this.data.ciudadesFav = this.climaService.ciudadesFav(this.id);
+    })
     modal.present();
     this.climaService.ciudadesFav(this.id);
     this.ciudades = null;
@@ -190,8 +198,11 @@ export class HomePage {
       item.astronomy.sunset
     );
     var modal = this.modalCtrl.create(AddTaskModalPage,{item:nuevoClima,agregar:agregar,id:this.id, ciudades:this.ciudades,data:this.data});
+    modal.onDidDismiss(() => {
+      this.data.ciudadesFav = this.climaService.ciudadesFav(this.id);
+    })
     modal.present();
-    this.climaService.ciudadesFav(this.id);
+    //this.climaService.ciudadesFav(this.id);
     this.ciudades = null;
   }
 
@@ -213,7 +224,10 @@ export class HomePage {
 
   watsonConversation(mensaje:string){
     this.watsonService.mensaje(mensaje).subscribe(
-      (response) => console.log(this.wResponse = response.json()),
+      (response) => {
+        console.log(this.wResponse = response.json())
+        
+      },
       (error) => console.log(error)
     );
 

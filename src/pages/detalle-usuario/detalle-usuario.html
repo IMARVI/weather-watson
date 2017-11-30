@@ -4,42 +4,41 @@
   </ion-navbar> 
 </ion-header>
 
-<ion-content class="login-content" padding>
+<ion-content class="main" padding *ngIf= "usuario">
+  <h3>Datos de {{usuario.nombre}}</h3>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input [(ngModel)]= "usuario.nombre" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Apellidos</ion-label>
+      <ion-input [(ngModel)]= "usuario.apellidos" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input [(ngModel)]= "usuario.email" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Contraseña</ion-label>
+      <ion-input [(ngModel)]= "usuario.pass" type="password" placeholder="Contraseña"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Activo</ion-label>
+      <ion-toggle [(ngModel)]="usuario.activo"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Rol</ion-label>
+      <ion-input [(ngModel)]= "usuario.role" type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list no-lines *ngIf= "usuario.role != 0 && !n_user">
+    <h3>Ciudades favoritas</h3>
+    <ion-item *ngFor= "let ciudad of usuario.ciudadesFav; let i = index">
+      <ion-input [(ngModel)]= "usuario.ciudadesFav[i]" type="text"></ion-input>
+    </ion-item>
+  </ion-list>
   
-<div *ngIf= "usuario">
-  <h2>Detalles de {{usuario.nombre}} </h2>
-  <div class="form-group">
-      <label>Nombre:</label>
-      <input [(ngModel)]= "usuario.nombre" placeholder="" type="text" class="form-control">
-      <small class="form-text text-muted">{{usuario.nombre}}</small>
-    </div>
-  <div class="form-group">
-    <label>Apellidos:</label>
-    <input [(ngModel)]= "usuario.matricula" placeholder="" type="text" class="form-control">
-    <small class="form-text text-muted">{{usuario.apellidos}}</small>
-  </div>
-  <div class="form-group">
-    <label>Activo:</label>
-    <input [(ngModel)]= "usuario.carrera" placeholder="" type="text" class="form-control">
-    <small class="form-text text-muted">{{usuario.activo}}</small>
-  </div>
-  <div class="form-group">
-    <label>Role:</label>
-    <input [(ngModel)]= "usuario.semestre" placeholder="" type="text" class="form-control">
-    <small class="form-text text-muted">{{usuario.role}}</small>
-  </div>
-  <div class="form-group">
-      <label>Email:</label>
-      <input [(ngModel)]= "usuario.edad" placeholder="" type="text" class="form-control">
-      <small class="form-text text-muted">{{usuario.email}}</small>
-  </div>
-  <h3>Ciudades favoritas</h3>
-  <div *ngFor= "let ciudad of usuario.ciudadesFav" class="form-group">
-    <label>{{ciudad}}:</label>
-    <input [(ngModel)]= "ciudad.calificacion" placeholder="" type="text" class="form-control">
-  </div>
-  
-  <button ion-button class="submit-btn" full (click) = save(usuario.id) class="btn btn-primary">Salvar</button>
-  <button ion-button color="danger" full (click) = delete(usuario.id) class="btn btn-primary">Eliminar</button>
-</div>
+  <button ion-button class="submit-btn" full (click) = "n_user? new_user():save(usuario.id)" class="btn btn-primary">Salvar</button>
+  <button *ngIf= "!n_user" ion-button color="danger" full (click) = delete(usuario.id) class="btn btn-primary">Eliminar</button>
 </ion-content>

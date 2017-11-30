@@ -42,4 +42,14 @@ color: #6B818C !important;
 .main {
 		background-color: color($colors, base);
 		color: set-text-color(color($colors, base));	
+		font-family: 'roboto', sans-serif;
+		font-weight: 100;
+}
+
+@function set-text-color($color) {
+	@if (lightness($color) > 70) {
+		@return #5D5D5D;
+	} @else {
+		@return #FFF;
+	}
 }

@@ -49,10 +49,10 @@ export class AddTaskModalPage {
       'ciudadesFav' : aux
     }
     var data = JSON.stringify(js);
-    console.log(data);
     var header = new Headers({"Content-Type":"application/json"})
     this.http.patch('http://localhost:3000/api/Usuarios/'+this.id, data, {headers: header}).subscribe();
-    this.navCtrl.pop();
+    this.dismiss();
+    //this.navCtrl.pop();
   }
 
   eliminarCiudad(ciudad:string){
@@ -75,8 +75,8 @@ export class AddTaskModalPage {
     //console.log(data);
     var header = new Headers({"Content-Type":"application/json"})
     this.http.patch('http://localhost:3000/api/Usuarios/'+this.id, data, {headers: header}).subscribe();
-
-    this.navCtrl.pop();
+    this.dismiss();
+    //this.navCtrl.pop();
   }
 
   convertirArreglo(){

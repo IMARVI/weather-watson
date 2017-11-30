@@ -18,7 +18,7 @@ $step: 1;
 		} @else {
 			$new-color: lighten($lighten-color, $step * 1.3);
 		    background-color: $new-color;
-		    color: set-text-color($new-color);
+		    color: set-text-color($new-color) !important;
 		    $last-color: $new-color
 		}
 	}
@@ -34,7 +34,14 @@ $step: 1;
 .item {
 	background: inherit;
 	background-color: inherit;
-	color: inherit;
+}
+
+.item h2 {
+	color: white;
+}
+
+.item h1 {
+	color: white;
 }
 
 .card {
@@ -45,7 +52,7 @@ $step: 1;
 	width: 100%;
 }
 
-#chat {
+.chat {
 	background-color: color($colors, base);
 	color: set-text-color(color($colors, base));
 }
@@ -80,5 +87,9 @@ $step: 1;
 #back {
 		font-size: 1.75em;
 		color: white;
+}
+
+.chat ion-list ion-item {
+	color: inherit;
 }
 

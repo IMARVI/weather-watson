@@ -2,4 +2,8 @@ page-detalle-usuario {
 	.submit-btn {
        background: darken(color($colors, base), 3);
      }
+
+     ion-label {
+     	color: #FFF !important;
+     }
 }

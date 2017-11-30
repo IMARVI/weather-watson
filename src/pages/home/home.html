@@ -1,6 +1,6 @@
 <ion-content id="main">
   <ion-icon id="back" name="log-out" padding float-right (click)="goToLogin()"></ion-icon>
-	<div id="chat">
+	<div class="chat">
 
 		<ion-row padding>
 			<h2 id="chat-welcome">
@@ -14,10 +14,12 @@
 	  </ion-row>
   </div>
 
-  <div *ngIf="wOps">
-    <p> Puedes preguntarme cosas como:</p>
-    <p> Dame el pronostico de hoy</p>
-    <p> Como esta el clima en "Ciudad"</p>
+  <div class="chat" *ngIf="wOps">
+  	<ion-list no-lines no-margin>
+		<ion-item text-center> Puedes preguntarme cosas como:</ion-item>
+	    <ion-item text-center> Dame el pronostico de hoy</ion-item>
+	    <ion-item text-center> ¿Cómo esta el clima en "Ciudad"?</ion-item>
+  	</ion-list>
   </div>
 
 

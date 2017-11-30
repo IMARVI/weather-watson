@@ -177,6 +177,9 @@ export class HomePage {
       ciudades:this.ciudades,
       data:this.data
     });
+    modal.onWillDismiss(() => {
+      this.data.ciudadesFav = this.climaService.ciudadesFav(this.id);
+    })
     modal.present();
     this.climaService.ciudadesFav(this.id);
     this.ciudades = null;
@@ -195,11 +198,11 @@ export class HomePage {
       item.astronomy.sunset
     );
     var modal = this.modalCtrl.create(AddTaskModalPage,{item:nuevoClima,agregar:agregar,id:this.id, ciudades:this.ciudades,data:this.data});
-    modal.onWillDismiss(() => {
+    modal.onDidDismiss(() => {
       this.data.ciudadesFav = this.climaService.ciudadesFav(this.id);
     })
     modal.present();
-    this.climaService.ciudadesFav(this.id);
+    //this.climaService.ciudadesFav(this.id);
     this.ciudades = null;
   }
 
